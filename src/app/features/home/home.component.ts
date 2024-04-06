@@ -8,7 +8,8 @@ import {DiscussionMessageModel} from '../../shared/models/discussion-message.mod
 import {AsyncPipe, NgForOf} from '@angular/common';
 import {BehaviorSubject, Observable, switchMap} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {QuestionModalComponent} from '../../question-modal/question-modal.component';
+import {QuestionModalComponent} from '../questions/question-modal/question-modal.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,8 @@ export class HomeComponent {
   refreshSubject = new BehaviorSubject(undefined);
 
   constructor(messagesApi: DiscussionMessageApiService,
-              private ngbModal: NgbModal) {
+              private ngbModal: NgbModal,
+              private router: Router) {
 
     this.questions$ = this.refreshSubject.asObservable()
       .pipe(switchMap(() => messagesApi.getLatestQuestions()));
@@ -44,4 +46,7 @@ export class HomeComponent {
     })
   }
 
+  onQuestionClick(item: DiscussionMessageModel) {
+    this.router.navigate(['questions', item.id])
+  }
 }

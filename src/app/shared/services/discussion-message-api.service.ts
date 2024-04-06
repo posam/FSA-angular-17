@@ -16,13 +16,17 @@ export class DiscussionMessageApiService {
     return this.http.get<DiscussionMessageModel[]>('/discussion-messages');
   }
 
-  getLatestQuestions() {
+  getQuestions() {
     return this.getDiscussionMessages()
       .pipe(map(value => value
         .filter(value1 => {
           return value1.typ === DiscussionMessageTypeEnum.QUESTION;
-        })
-        .slice(0, 3)));
+        })));
+  }
+
+  getLatestQuestions() {
+    return this.getQuestions()
+      .pipe(map(value => value.slice(0, 3)));
   }
 
   createQuestion(question: DiscussionMessageModel) {
@@ -33,4 +37,12 @@ export class DiscussionMessageApiService {
   }
 
 
+  getQuestion(id: number) {
+    return this.getQuestions()
+      .pipe(map(value => {
+        return value.find(value1 => {
+          return value1.id = id;
+        })
+      }));
+  }
 }

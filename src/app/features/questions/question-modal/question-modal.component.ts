@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {DiscussionMessageModel} from '../shared/models/discussion-message.model';
-import {DiscussionMessageTypeEnum} from '../shared/models/discussion-message-type.enum';
-import {UserService} from '../user.service';
+import {DiscussionMessageModel} from '../../../shared/models/discussion-message.model';
+import {DiscussionMessageTypeEnum} from '../../../shared/models/discussion-message-type.enum';
+import {UserService} from '../../../user.service';
 import {FormsModule, NgForm} from '@angular/forms';
-import {DiscussionMessageApiService} from '../shared/services/discussion-message-api.service';
+import {DiscussionMessageApiService} from '../../../shared/services/discussion-message-api.service';
 
 @Component({
   selector: 'app-question-modal',

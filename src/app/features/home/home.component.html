@@ -3,7 +3,8 @@
 <app-section-container header="Latest questions">
 
   <app-message *ngFor="let item of (questions$ | async)"
-  [message]="item"></app-message>
+               class="clickable"
+  [message]="item" (click)="onQuestionClick(item)"></app-message>
 
   <div class="mt-8 text-end">
     <button type="button" class="text-uppercase fw-bold text-decoration-none e-icon-link e-icon-link--action"
