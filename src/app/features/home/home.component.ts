@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {DiscussionMessageApiService} from '../../shared/services/discussion-message-api.service';
 
 @Component({
   selector: 'app-home',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
+
+  constructor(private messagesApi: DiscussionMessageApiService) {
+
+    messagesApi.getDiscussionMessages()
+      .subscribe(value => {
+
+      })
+  }
 }
