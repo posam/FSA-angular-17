@@ -1,4 +1,3 @@
-
 <h1>Hello, {{ title }}</h1>
 
 <button type="button" (click)="toggleCounters()">Toggle</button>
@@ -8,3 +7,13 @@
 <app-counter *ngIf="counterVisible"></app-counter>
 <app-counter *ngIf="counterVisible"></app-counter>
 <app-counter *ngIf="counterVisible"></app-counter>
+
+<hr>
+
+<label>Value A:</label>
+<input type="number" [(ngModel)]="valueA">
+<br>
+<label>Value B:</label>
+<input type="number" [(ngModel)]="valueB">
+<br>
+{{ valueA + ' + ' + valueB + ' = ' + (valueA + valueB) }}
