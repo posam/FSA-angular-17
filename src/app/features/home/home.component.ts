@@ -5,7 +5,8 @@ import {SectionHeaderComponent} from '../../core/components/section-header/secti
 import {MessageComponent} from '../../shared/components/message/message.component';
 import {SectionContainerComponent} from '../../core/components/section-container/section-container.component';
 import {DiscussionMessageModel} from '../../shared/models/discussion-message.model';
-import {NgForOf} from '@angular/common';
+import {AsyncPipe, NgForOf} from '@angular/common';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -15,20 +16,16 @@ import {NgForOf} from '@angular/common';
     SectionHeaderComponent,
     MessageComponent,
     SectionContainerComponent,
-    NgForOf
+    NgForOf,
+    AsyncPipe
   ],
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
 
-
-   questions: DiscussionMessageModel[] | undefined;
+  questions$: Observable<DiscussionMessageModel[]>;
 
   constructor(private messagesApi: DiscussionMessageApiService) {
-
-    messagesApi.getDiscussionMessages()
-      .subscribe(value => {
-        this.questions = value;
-      })
+    this.questions$ = messagesApi.getDiscussionMessages();
   }
 }

@@ -2,7 +2,8 @@
 
 <app-section-container header="Latest questions">
 
-  <app-message *ngFor="let item of questions"></app-message>
+  <app-message *ngFor="let item of (questions$ | async)"
+  [message]="item"></app-message>
 
 </app-section-container>
 
