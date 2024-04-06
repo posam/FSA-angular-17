@@ -5,6 +5,7 @@ import {AsyncPipe, NgIf} from '@angular/common';
 import {UserModel} from './shared/models/user.model';
 import {Observable} from 'rxjs';
 import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle} from '@ng-bootstrap/ng-bootstrap';
+import {InitialsPipe} from './initials.pipe';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle} from '@ng-bootstrap/ng-
     AsyncPipe,
     NgbDropdown,
     NgbDropdownToggle,
-    NgbDropdownMenu
+    NgbDropdownMenu,
+    InitialsPipe
   ],
   templateUrl: './app.component.html'
 })
