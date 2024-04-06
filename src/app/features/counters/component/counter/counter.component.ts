@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {CounterService} from '../counter.service';
+import {CounterService} from '../../services/counter.service';
 import {map, Observable, tap} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
-import {SignPipe} from '../sign.pipe';
+import {SignPipe} from '../../../../core/pipes/sign.pipe';
 
 @Component({
   selector: 'app-counter',

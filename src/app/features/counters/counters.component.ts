@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CounterComponent} from '../counter/counter.component';
+import {CounterComponent} from './component/counter/counter.component';
 import {NgIf} from '@angular/common';
 
 @Component({

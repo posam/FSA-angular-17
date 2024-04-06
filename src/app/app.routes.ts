@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {CalcComponent} from './calc/calc.component';
-import {CountersComponent} from './counters/counters.component';
-import {HomeComponent} from './home/home.component';
+import {PageNotFoundComponent} from './core/components/page-not-found/page-not-found.component';
+import {CalcComponent} from './features/calc/calc.component';
+import {CountersComponent} from './features/counters/counters.component';
+import {HomeComponent} from './features/home/home.component';
 
 export const routes: Routes = [
 
