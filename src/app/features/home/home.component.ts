@@ -26,6 +26,6 @@ export class HomeComponent {
   questions$: Observable<DiscussionMessageModel[]>;
 
   constructor(private messagesApi: DiscussionMessageApiService) {
-    this.questions$ = messagesApi.getDiscussionMessages();
+    this.questions$ = messagesApi.getLatestQuestions();
   }
 }
