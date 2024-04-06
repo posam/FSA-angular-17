@@ -6,7 +6,9 @@ import {MessageComponent} from '../../shared/components/message/message.componen
 import {SectionContainerComponent} from '../../core/components/section-container/section-container.component';
 import {DiscussionMessageModel} from '../../shared/models/discussion-message.model';
 import {AsyncPipe, NgForOf} from '@angular/common';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable, switchMap} from 'rxjs';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {QuestionModalComponent} from '../../question-modal/question-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +27,21 @@ export class HomeComponent {
 
   questions$: Observable<DiscussionMessageModel[]>;
 
-  constructor(private messagesApi: DiscussionMessageApiService) {
-    this.questions$ = messagesApi.getLatestQuestions();
+  refreshSubject = new BehaviorSubject(undefined);
+
+  constructor(messagesApi: DiscussionMessageApiService,
+              private ngbModal: NgbModal) {
+
+    this.questions$ = this.refreshSubject.asObservable()
+      .pipe(switchMap(() => messagesApi.getLatestQuestions()));
   }
+
+  onNewQuestionClick() {
+    const modalRef = this.ngbModal.open(QuestionModalComponent);
+
+    modalRef.result.then(() => {
+      this.refreshSubject.next(undefined);
+    })
+  }
+
 }

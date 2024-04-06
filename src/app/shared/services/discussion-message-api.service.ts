@@ -25,4 +25,12 @@ export class DiscussionMessageApiService {
         .slice(0, 3)));
   }
 
+  createQuestion(question: DiscussionMessageModel) {
+    question.created = new Date();
+
+    return this.http.post<DiscussionMessageModel[]>('/discussion-messages',
+      question);
+  }
+
+
 }

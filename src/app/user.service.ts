@@ -50,4 +50,7 @@ export class UserService {
     return this.user.asObservable();
   }
 
+  getUser() {
+    return this.user.getValue();
+  }
 }
