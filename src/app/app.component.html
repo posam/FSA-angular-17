@@ -30,13 +30,27 @@
           ><i class="zmdi zmdi-functions"></i> Math</a>
         </li>
 
-
-
-
-
-
       </ul>
     </div>
+
+    <ng-container *ngIf="(user$ | async) as user; else loginTemplate">
+      <div ngbDropdown class="mt-lg-4" [title]="user.name">
+        <button class="e-user" type="button" ngbDropdownToggle>
+          {{user.name}}
+        </button>
+
+        <ul ngbDropdownMenu >
+          <li><button type="button" class="dropdown-item" (click)="logout()">Logout</button></li>
+        </ul>
+      </div>
+    </ng-container>
+
+    <ng-template #loginTemplate>
+      <button class="e-user" type="button" (click)="login()">
+        Login
+      </button>
+    </ng-template>
+
   </div>
 </nav>
 

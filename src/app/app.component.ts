@@ -1,5 +1,10 @@
 import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {UserService} from './user.service';
+import {AsyncPipe, NgIf} from '@angular/common';
+import {UserModel} from './shared/models/user.model';
+import {Observable} from 'rxjs';
+import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +12,28 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
   imports: [
     RouterOutlet,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NgIf,
+    AsyncPipe,
+    NgbDropdown,
+    NgbDropdownToggle,
+    NgbDropdownMenu
   ],
   templateUrl: './app.component.html'
 })
 export class AppComponent {
 
+  user$: Observable<UserModel | undefined>;
+
+  constructor(private userService: UserService) {
+    this.user$ = userService.getUserChanges();
+  }
+
+  login() {
+    this.userService.login();
+  }
+
+  logout() {
+    this.userService.logout();
+  }
 }
