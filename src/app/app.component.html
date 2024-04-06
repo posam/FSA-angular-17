@@ -36,7 +36,7 @@
     <ng-container *ngIf="(user$ | async) as user; else loginTemplate">
       <div ngbDropdown class="mt-lg-4" [title]="user.name">
         <button class="e-user" type="button" ngbDropdownToggle>
-          {{user.name}}
+          {{user.name }}
         </button>
 
         <ul ngbDropdownMenu >

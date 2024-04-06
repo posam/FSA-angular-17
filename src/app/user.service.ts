@@ -10,7 +10,7 @@ import {UserRoleEnum} from './shared/models/user-role.enum';
 })
 export class UserService {
 
-  user = new BehaviorSubject<UserModel | undefined>(undefined);
+  private user = new BehaviorSubject<UserModel | undefined>(undefined);
 
 
   constructor(private oauthService: OAuthService) {
@@ -21,11 +21,8 @@ export class UserService {
   tryLogin() {
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
       .then(value => {
-        console.log(value);
-
         if (value) {
-
-          this.user.next(this.oauthService.getIdentityClaims() as UserModel);
+        this.user.next(this.oauthService.getIdentityClaims() as UserModel);
         } else {
           this.user.next({
             name: 'Hack Hackatovic',
@@ -40,10 +37,7 @@ export class UserService {
   login() {
     this.oauthService.loadDiscoveryDocumentAndLogin()
       .then(value => {
-        console.log(value);
-
         this.user.next(this.oauthService.getIdentityClaims() as UserModel);
-
       })
   }
 

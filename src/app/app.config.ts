@@ -2,21 +2,21 @@ import {ApplicationConfig, importProvidersFrom} from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
-import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi} from '@angular/common/http';
-import {DefaultOAuthInterceptor, OAuthModule, provideOAuthClient} from 'angular-oauth2-oidc';
-import {authInterceptor} from './core/inteceptors/auth.interceptor';
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {DefaultOAuthInterceptor, OAuthModule} from 'angular-oauth2-oidc';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    {provide: HTTP_INTERCEPTORS, useClass: DefaultOAuthInterceptor, multi: true},
     provideRouter(routes),
-    provideHttpClient(
-      withInterceptors([authInterceptor])
-    ),
-    provideOAuthClient({
-      resourceServer: {
-        allowedUrls: ['/'],
-        sendAccessToken: true
-      }
-    })
+    importProvidersFrom(
+      OAuthModule.forRoot({
+        resourceServer: {
+          allowedUrls: ['/'],
+          sendAccessToken: true
+        }
+      })
+    )
   ]
 };
