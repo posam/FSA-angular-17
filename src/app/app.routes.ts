@@ -11,7 +11,7 @@ export const routes: Routes = [
   {path: 'calc', component: CalcComponent},
   {path: 'counter', component: CountersComponent},
   {path: 'questions/:id', component: QuestionDetailComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 
 ];

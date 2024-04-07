@@ -3,7 +3,6 @@ import {OAuthService} from 'angular-oauth2-oidc';
 import {authCodeFlowConfig} from './core/config/authCodeFlowConfig';
 import {BehaviorSubject} from 'rxjs';
 import {UserModel} from './shared/models/user.model';
-import {UserRoleEnum} from './shared/models/user-role.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +20,7 @@ export class UserService {
   tryLogin() {
     this.oauthService.loadDiscoveryDocumentAndTryLogin()
       .then(value => {
-        if (value) {
         this.user.next(this.oauthService.getIdentityClaims() as UserModel);
-        } else {
-          this.user.next({
-            name: 'Hack Hackatovic',
-            rola: UserRoleEnum.STUDENT,
-            id: 999,
-            mail: 'student@posam.sk'
-          } as UserModel);
-        }
       })
   }
 
