@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {DiscussionMessageModel} from '../models/discussion-message.model';
 import {map} from 'rxjs';
 import {DiscussionMessageTypeEnum} from '../models/discussion-message-type.enum';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class DiscussionMessageApiService {
   }
 
   getDiscussionMessages() {
-    return this.http.get<DiscussionMessageModel[]>('/discussion-messages');
+    return this.http.get<DiscussionMessageModel[]>(environment.beUrl + '/discussion-messages');
   }
 
   getQuestions() {
@@ -32,7 +33,7 @@ export class DiscussionMessageApiService {
   createQuestion(question: DiscussionMessageModel) {
     question.created = new Date();
 
-    return this.http.post<DiscussionMessageModel[]>('/discussion-messages',
+    return this.http.post<DiscussionMessageModel[]>(environment.beUrl + '/discussion-messages',
       question);
   }
 
