@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DiscussionMessageModel} from '../models/discussion-message.model';
-import {map} from 'rxjs';
+import {map, switchMap} from 'rxjs';
 import {DiscussionMessageTypeEnum} from '../models/discussion-message-type.enum';
 import {environment} from '../../../environments/environment';
 
@@ -42,8 +42,25 @@ export class DiscussionMessageApiService {
     return this.getQuestions()
       .pipe(map(value => {
         return value.find(value1 => {
-          return value1.id = id;
+          return value1.id === id;
         })
       }));
   }
+
+  getAllAnswers() {
+    return this.getDiscussionMessages()
+      .pipe(map(value => value
+        .filter(value1 => {
+          return value1.typ === DiscussionMessageTypeEnum.ANSWER;
+        })));
+  }
+
+  getAnswers(id: number) {
+    return this.getQuestion(id)
+      .pipe(switchMap(question => {
+        return this.getAllAnswers()
+          .pipe(map(allAnswers => allAnswers.filter(answer => answer.name === question?.name)));
+      }))
+  }
+
 }
