@@ -4,17 +4,23 @@ import {DiscussionMessageModel} from '../models/discussion-message.model';
 import {map, switchMap} from 'rxjs';
 import {DiscussionMessageTypeEnum} from '../models/discussion-message-type.enum';
 import {environment} from '../../../environments/environment';
+import {UserService} from '../../user.service';
+import {UserRoleEnum} from '../models/user-role.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiscussionMessageApiService {
 
-  constructor(private http: HttpClient) {
+  apiUrl = environment.beUrl + '/discussion-messages';
+
+  constructor(private http: HttpClient,
+              private userService: UserService) {
   }
 
   getDiscussionMessages() {
-    return this.http.get<DiscussionMessageModel[]>(environment.beUrl + '/discussion-messages');
+
+    return this.http.get<DiscussionMessageModel[]>(this.apiUrl);
   }
 
   getQuestions() {
@@ -61,6 +67,18 @@ export class DiscussionMessageApiService {
         return this.getAllAnswers()
           .pipe(map(allAnswers => allAnswers.filter(answer => answer.name === question?.name)));
       }))
+  }
+
+  answerQuestion(question: DiscussionMessageModel, answer: DiscussionMessageModel) {
+    const answerBody = {...answer};
+    answerBody.created = new Date();
+    answerBody.createdBy = this.userService.getUser();
+
+    if (answerBody.createdBy) {
+      answerBody.createdBy.rola = UserRoleEnum.STUDENT;//HACK lebo mi to neposlal BE
+    }
+
+    return this.http.post(this.apiUrl + '/' + question.id + '/reply', answerBody);
   }
 
 }
