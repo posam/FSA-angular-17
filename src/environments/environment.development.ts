@@ -1,5 +1,5 @@
 export const environment = {
-  keyCloakUrl: 'http://localhost:8081',
-  beUrl: 'http://localhost:4200',
+  keyCloakUrl: '8080',
+  beUrl: '8081',
   appUrl: 'http://localhost:4200',
 };
