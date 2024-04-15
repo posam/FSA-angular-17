@@ -1,5 +1,5 @@
 export const environment = {
-  keyCloakUrl: 'fsa-keycloak-http.app.svc.cluster.local',
-  beUrl: 'fsa-be.app.svc.cluster.local:8080',
-  appUrl: 'fsa-fe.app.svc.cluster.local',
+  keyCloakUrl: '"8080',
+  beUrl: ':8081',
+  appUrl: 'http://localhost:4200',
 };
