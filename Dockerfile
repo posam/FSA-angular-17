@@ -17,6 +17,10 @@ RUN npm run build
 # Use a smaller, production-ready image as the final image
 FROM nginx:alpine
 
+# copy the custom nginx configuration file to the container in the
+# default location
+COPY nginx.conf /etc/nginx/nginx.conf
+
 # Copy the Angular app to the Nginx webserver's root directory
 COPY --from=build /app/dist/course-quest/browser /usr/share/nginx/html
 
