@@ -17,8 +17,8 @@ import {DiscussionMessageApiService} from '../../../shared/services/discussion-m
 export class QuestionModalComponent {
 
   question: DiscussionMessageModel = {
-    typ: DiscussionMessageTypeEnum.QUESTION,
-    createdBy: this.userService.getUser()
+    typ: DiscussionMessageTypeEnum.QUESTION
+    // createdBy: this.userService.getUser()
   }
 
   constructor(private activeModal: NgbActiveModal,
