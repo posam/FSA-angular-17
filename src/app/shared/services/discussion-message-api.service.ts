@@ -5,7 +5,6 @@ import {map, switchMap} from 'rxjs';
 import {DiscussionMessageTypeEnum} from '../models/discussion-message-type.enum';
 import {environment} from '../../../environments/environment';
 import {UserService} from '../../user.service';
-import {UserRoleEnum} from '../models/user-role.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,6 @@ export class DiscussionMessageApiService {
   }
 
   getDiscussionMessages() {
-
     return this.http.get<DiscussionMessageModel[]>(this.apiUrl);
   }
 
@@ -72,11 +70,6 @@ export class DiscussionMessageApiService {
   answerQuestion(question: DiscussionMessageModel, answer: DiscussionMessageModel) {
     const answerBody = {...answer};
     answerBody.created = new Date();
-    answerBody.createdBy = this.userService.getUser();
-
-    if (answerBody.createdBy) {
-      answerBody.createdBy.rola = UserRoleEnum.STUDENT;//HACK lebo mi to neposlal BE
-    }
 
     return this.http.post(this.apiUrl + '/' + question.id + '/reply', answerBody);
   }
